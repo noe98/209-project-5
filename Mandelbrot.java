@@ -39,6 +39,11 @@ public class Mandelbrot extends JFrame {
         
         canvas = new Canvas(3); // Scaled up by 3x       
         add(canvas, positionConst);
+
+        positionConst.fill = GridBagConstraints.HORIZONTAL;
+        positionConst.gridwidth = 1;
+        positionConst.gridy = 1;
+        positionConst.weighty = 0;
         
         // Create Action Listeners for Buttons
         ActionListener increase_bl = new ActionListener(){
