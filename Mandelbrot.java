@@ -60,7 +60,7 @@ public class Mandelbrot extends JFrame {
 
         ActionListener saveImg_bl = new ActionListener(){
             public void actionPerformed(ActionEvent e){
-               // Do Something 
+               canvas.saveImage();
             }
         };
 
@@ -72,7 +72,7 @@ public class Mandelbrot extends JFrame {
 
         ActionListener reset_bl = new ActionListener(){
             public void actionPerformed(ActionEvent e){
-               // Do Something 
+               canvas.resetRender();
             }
         };
 

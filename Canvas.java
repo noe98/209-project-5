@@ -3,8 +3,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.awt.event.*;
 import java.lang.Thread;
 
@@ -30,6 +33,9 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    private BufferedImage image;
    private Graphics2D gImg;
    private double scale;
+
+   public static final int DEFAULT_LIMIT = 32;
+   private int limit = DEFAULT_LIMIT;
    
    // Final variables
    final private Color colorSelect = new Color(0, 200, 200);
@@ -44,8 +50,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       super();
       
       scale = 1;
-      
-     
       
       setup();
       
@@ -300,6 +304,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
                // ???
                
                
+               
                // Set the pixel in the image to the appropriate color
                image.setRGB(x, y, Color.BLACK.getRGB());
              }
@@ -322,8 +327,24 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       // Paint NOW to force the chunk visualization
       paintImmediately(0, 0, width, height);
    }
+
+   public void saveImage(){
+      JFileChooser fc = new JFileChooser();
+      if(fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
+         java.io.File f = fc.getSelectedFile();
+         try {
+            javax.imageio.ImageIO.write(image,"png",f);
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      }
+   }
+
+   
 }
 
 class SetCalculator {
-   
+   public SetCalculator(int x, int y, int limit){
+
+   }
 }
