@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Mandelbrot",
+            "request": "launch",
+            "mainClass": "Mandelbrot",
+            "projectName": "209-project-5_c23914f4"
+        }
+    ]
+}

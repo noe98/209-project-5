@@ -17,7 +17,7 @@ public class Mandelbrot extends JFrame {
         JButton loadPosButton = new JButton("Load Position");
         JButton editGradButton = new JButton("Edit Gradient");
         String[] sets = {"Julia Set","Mandelbrot Set"};
-        JComboBox setButton = new JComboBox(sets);
+        JComboBox<String> setButton = new JComboBox<>(sets);
 
         // Use a GridBagLayout
         setLayout(new GridBagLayout());
@@ -88,6 +88,43 @@ public class Mandelbrot extends JFrame {
                // Do Something 
             }
         };
+
+        positionConst.gridy=1;
+        positionConst.gridwidth=1;
+
+        positionConst.gridx=1;
+        add(increaseButton,positionConst);
+        increaseButton.addActionListener(increase_bl);
+
+        positionConst.gridx=2;
+        add(decreaseButton,positionConst);
+        decreaseButton.addActionListener(decrease_bl);
+
+        positionConst.gridx=3;
+        add(resetButton,positionConst);
+        resetButton.addActionListener(reset_bl);
+
+        positionConst.gridx=4;
+        add(setButton,positionConst);
+        setButton.addActionListener(set_bl);
+
+        positionConst.gridy=2;
+
+        positionConst.gridx=1;
+        add(saveImgButton,positionConst);
+        saveImgButton.addActionListener(saveImg_bl);
+
+        positionConst.gridx=2;
+        add(savePosButton,positionConst);
+        savePosButton.addActionListener(savePos_bl);
+
+        positionConst.gridx=3;
+        add(loadPosButton,positionConst);
+        loadPosButton.addActionListener(loadPos_bl);
+
+        positionConst.gridx=4;
+        add(editGradButton,positionConst);
+        editGradButton.addActionListener(editGrad_bl);
     }
     
     public static void main(String[] args) {
