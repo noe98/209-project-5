@@ -48,13 +48,13 @@ public class Mandelbrot extends JFrame {
         // Create Action Listeners for Buttons
         ActionListener increase_bl = new ActionListener(){
             public void actionPerformed(ActionEvent e){
-               // Do Something 
+               canvas.increaseLimit();
             }
         };
 
         ActionListener decrease_bl = new ActionListener(){
             public void actionPerformed(ActionEvent e){
-               // Do Something 
+               canvas.decreaseLimit();
             }
         };
 
@@ -72,7 +72,7 @@ public class Mandelbrot extends JFrame {
 
         ActionListener reset_bl = new ActionListener(){
             public void actionPerformed(ActionEvent e){
-               canvas.resetRender();
+               canvas.reset();
             }
         };
 

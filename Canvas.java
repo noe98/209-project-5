@@ -340,7 +340,25 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       }
    }
 
-   
+   public void reset(){
+      limit = DEFAULT_LIMIT;
+      drawRect = null;
+      posStart = null;
+      posEnd = null;
+      resetRender();
+   }
+
+   public void increaseLimit(){
+      limit = limit*2;
+      resetRender();
+   }
+
+   public void decreaseLimit(){
+      if(limit>DEFAULT_LIMIT){
+         limit = limit/2;
+      }
+      resetRender();
+   }
 }
 
 class SetCalculator {
