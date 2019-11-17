@@ -53,9 +53,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       
       // Start the first render
       resetRender();
-      
-      
-      
    }
    
    /*
@@ -75,8 +72,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       
       // Start the first render
       resetRender();
-      
-      
    }
    
    /*
@@ -96,7 +91,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       // Listen for mouse movement or input
       addMouseListener(this);      
       addMouseMotionListener(this);
-      
    }
    
    /*
@@ -112,8 +106,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       // Image which is drawn upon
       image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
       gImg = image.createGraphics();
-      
-      
    }
    
    /*
@@ -134,7 +126,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
          g.drawRect((int)drawRect.getX(), (int)drawRect.getY(),
                     (int)drawRect.getWidth(), (int)drawRect.getHeight());
       }
-      
    }
    
    // Methods needed for mouse listeners but not needed to implement
@@ -240,7 +231,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       drawRect.setSize(distX,
                        distY);
       
-      
       // Let paintComponent handle this later
       repaint();
    }
@@ -266,7 +256,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       
       // Re-draw the panel
       repaint();
-
    }
    
    /*
@@ -280,19 +269,15 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       while (!doneRendering) {
          try { 
              // relinquish control 
-             Thread.yield();
-             
+             Thread.yield(); 
          } 
          // Catch anything that goes wrong
          catch (Exception e) { 
              System.out.println(e); 
          }
-         
          // Render next chunk
          render();
-      
       }
-    
    }
    
    /*
@@ -334,10 +319,11 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
             renderY = 0;
          }
       }
-      
       // Paint NOW to force the chunk visualization
       paintImmediately(0, 0, width, height);
-      
    }
+}
+
+class SetCalculator {
    
 }
