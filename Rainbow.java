@@ -26,7 +26,7 @@ public class Rainbow{
      * Rainbow
      * creates an array of colors and sets its max to the limit
      */
-    private Rainbow(int n){
+    public Rainbow(int n){
         fillRainbowColors(n);
         
     }
@@ -66,9 +66,9 @@ public class Rainbow{
             int b = (int) ((percent * (endColor.getBlue() - startColor.getBlue())) +startColor.getBlue());
             int g = (int) (percent * (endColor.getGreen() - startColor.getGreen()) +startColor.getGreen());
             colors[i] = new Color(r, b, g);
-            System.out.println(colors[i]);
-            System.out.println(percent);
-            System.out.println(startColor + ", " + endColor);     
+            // System.out.println(colors[i]);
+            // System.out.println(percent);
+            // System.out.println(startColor + ", " + endColor);     
         }
     }
 

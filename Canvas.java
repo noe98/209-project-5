@@ -389,14 +389,18 @@ class SetCalculator {
    }
    
    public int getT(double x, double y){
+      
       double real = x * (xMax - xMin) + xMin;
       double imag = y * (yMax - yMin) + yMin;
-      
       Complex c =  new Complex(real,imag);
+      double av = c.abs();
       Complex c0 = new Complex(real,imag);
+      
+      if(set=="Julia Set"){
+         c0 = new Complex(-0.1,0.65);
+      }
 
       for(int i = 0; i < limit; i++){
-         double av = c.abs();
          if(av > 2.0){
             return i;
          }
@@ -404,6 +408,6 @@ class SetCalculator {
             c = c.times(c).plus(c0);
          }
       }
-      return limit;
+      return limit; 
    }
 }
