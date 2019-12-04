@@ -16,7 +16,7 @@ public class Mandelbrot extends JFrame {
         JButton resetButton = new JButton("Reset");
         JButton loadPosButton = new JButton("Load Position");
         JButton editGradButton = new JButton("Edit Gradient");
-        String[] sets = {"Julia Set","Mandelbrot Set"};
+        String[] sets = {"Mandelbrot Set", "Julia Set"};
         JComboBox<String> setButton = new JComboBox<>(sets);
 
         // Use a GridBagLayout
@@ -90,7 +90,8 @@ public class Mandelbrot extends JFrame {
 
         ActionListener set_bl = new ActionListener(){
             public void actionPerformed(ActionEvent e){
-               // Do Something 
+               canvas.setSet(setButton.getSelectedItem().toString());
+               canvas.resetRender();
             }
         };
 

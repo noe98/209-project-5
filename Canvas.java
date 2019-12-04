@@ -33,9 +33,11 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    private BufferedImage image;
    private Graphics2D gImg;
    private double scale;
+   private Rainbow r = new Rainbow((int)(DEFAULT_LIMIT*Math.pow(2, 5)+1));
 
    public static final int DEFAULT_LIMIT = 32;
    private int limit = DEFAULT_LIMIT;
+   private String set = "Mandelbrot Set";
    
    // Final variables
    final private Color colorSelect = new Color(0, 200, 200);
@@ -93,7 +95,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       drawRect = null;
       
       // Listen for mouse movement or input
-      addMouseListener(this);      
+      addMouseListener(this);
       addMouseMotionListener(this);
    }
    
@@ -134,21 +136,16 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    
    // Methods needed for mouse listeners but not needed to implement
    @Override
-   public void mouseEntered(MouseEvent e) {
-   }
+   public void mouseEntered(MouseEvent e) {}
 
    @Override
-   public void mouseExited(MouseEvent e) {
-   }
+   public void mouseExited(MouseEvent e) {}
    
    @Override
-   public void mouseMoved(MouseEvent e) {
-   }
+   public void mouseMoved(MouseEvent e) {}
 
    @Override
-   public void mouseClicked(MouseEvent e) {
-      
-   }
+   public void mouseClicked(MouseEvent e) {}
    
    
    /*
@@ -234,7 +231,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       
       drawRect.setSize(distX,
                        distY);
-      
+            
       // Let paintComponent handle this later
       repaint();
    }
@@ -298,15 +295,17 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       if (!doneRendering) {
          
          // Iterate over each pixel in the render chunk
+         SetCalculator sc = new SetCalculator(limit, set);
+         double xProp, yProp;
+         r.fillRainbowColors(limit+1);
          for(int x = renderX; x < renderX + chunkSize; x++) {
              for(int y = renderY; y < renderY + chunkSize; y++) {
-               // Get the mandelbrot limit for that x/y
-               // ???
-               
-               
-               
+               xProp = ((double) x) / ((double) width);
+               yProp = ((double) y) / ((double) height);
+               int t = sc.getT(xProp, yProp);
+               Color cc = r.getColor(t);
                // Set the pixel in the image to the appropriate color
-               image.setRGB(x, y, Color.BLACK.getRGB());
+               image.setRGB(x, y, cc.getRGB());
              }
          }
          
@@ -349,7 +348,9 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    }
 
    public void increaseLimit(){
-      limit = limit*2;
+      if (limit<(DEFAULT_LIMIT*Math.pow(2, 5))){
+         limit = limit*2;
+      }
       resetRender();
    }
 
@@ -359,10 +360,50 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       }
       resetRender();
    }
+
+   public void setSet(String set){
+      this.set = set;
+   }
 }
 
 class SetCalculator {
-   public SetCalculator(int x, int y, int limit){
+   double xMin, xMax, yMin, yMax;
+   String set;
+   int limit;
 
+   public SetCalculator(int limit, String set){
+      this.set = set;
+      this.limit = limit;
+      if(set=="Mandelbrot Set"){
+         xMin = -2.5;
+         xMax = 1.0;
+         yMin = -1.0;
+         yMax = 1.0;
+      }
+      else if(set=="Julia Set"){
+         xMin = -1.5;
+         xMax = 1.5;
+         yMin = -1.5;
+         yMax = 1.5;
+      }
+   }
+   
+   public int getT(double x, double y){
+      double real = x * (xMax - xMin) + xMin;
+      double imag = y * (yMax - yMin) + yMin;
+      
+      Complex c =  new Complex(real,imag);
+      Complex c0 = new Complex(real,imag);
+
+      for(int i = 0; i < limit; i++){
+         double av = c.abs();
+         if(av > 2.0){
+            return i;
+         }
+         else{
+            c = c.times(c).plus(c0);
+         }
+      }
+      return limit;
    }
 }
