@@ -3,8 +3,6 @@ import java.awt.*;
 
 public class TextArea extends JPanel {
     public TextArea() {
-        double xPos = 0;
-        double yPos = 0;
         initializeUI();
     }
 
@@ -13,7 +11,11 @@ public class TextArea extends JPanel {
         this.setPreferredSize(new Dimension(500, 200));
 
         JTextArea textArea = new JTextArea(5, 50);
-        textArea.setText("X Coordinate: " + "\n" +"Y Coordinate: ");
+
+        double xPos = 0.0;
+        double yPos = 0.0;
+        
+        textArea.setText("X Coordinate: " + xPos + "\n" +"Y Coordinate: " + yPos);
 
         // By default the JTextArea is editable, calling
         // setEditable(false) produce uneditable JTextArea.
