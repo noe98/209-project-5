@@ -393,7 +393,7 @@ class SetCalculator {
       double real = x * (xMax - xMin) + xMin;
       double imag = y * (yMax - yMin) + yMin;
       Complex c =  new Complex(real,imag);
-      double av = c.abs();
+      
       Complex c0 = new Complex(real,imag);
       
       if(set=="Julia Set"){
@@ -401,6 +401,7 @@ class SetCalculator {
       }
 
       for(int i = 0; i < limit; i++){
+         double av = c.abs();
          if(av > 2.0){
             return i;
          }
