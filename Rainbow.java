@@ -25,6 +25,7 @@ public class Rainbow{
     /**
      * Rainbow
      * creates an array of colors and sets its max to the limit
+     * @param int n
      */
     private Rainbow(int n){
         fillRainbowColors(n);
@@ -35,6 +36,7 @@ public class Rainbow{
      * Rainbow getInstance
      * instance getter
      * because it is a singleton, we create a new instance of the Rainbow
+     * @param int n
      * @return inst
      */
 
@@ -66,14 +68,18 @@ public class Rainbow{
             int b = (int) ((percent * (endColor.getBlue() - startColor.getBlue())) +startColor.getBlue());
             int g = (int) (percent * (endColor.getGreen() - startColor.getGreen()) +startColor.getGreen());
             colors[i] = new Color(r, g, b);
-            // System.out.println(colors[i]);
-            // System.out.println(percent);
-            // System.out.println(startColor + ", " + endColor);     
+    
         }
     }
 
 
-    // given an index, get the color at that index
+    /**
+     * getColor
+     * color getter for the Mandelbrot set
+     * @param index
+     * @return color at an index
+     * @return black if the index causes an error
+     */
     public Color getColor(int index){
         if(colors.length == index){
             return Color.BLACK;
