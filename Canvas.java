@@ -33,10 +33,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    private BufferedImage image;
    private Graphics2D gImg;
    private double scale;
-   private Rainbow r = new Rainbow((int)(DEFAULT_LIMIT*Math.pow(2, 5)+1));
 
    public static final int DEFAULT_LIMIT = 32;
    private int limit = DEFAULT_LIMIT;
+   private Rainbow r = Rainbow.getInstance(limit);
    private String set = "Mandelbrot Set";
    
    // Final variables
@@ -176,6 +176,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       
       // Resize the viewing area here
       
+
       // Free up the draw variables
       drawRect = null;
       posStart = null;
@@ -348,9 +349,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    }
 
    public void increaseLimit(){
-      if (limit<(DEFAULT_LIMIT*Math.pow(2, 5))){
-         limit = limit*2;
-      }
+      limit = limit*2;
       resetRender();
    }
 
@@ -386,6 +385,10 @@ class SetCalculator {
          yMin = -1.5;
          yMax = 1.5;
       }
+   }
+
+   public void setVars(double xMinp, double xMaxp, double yMinp, double yMin){
+      
    }
    
    public int getT(double x, double y){
