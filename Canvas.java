@@ -297,7 +297,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
          // Iterate over each pixel in the render chunk
          SetCalculator sc = new SetCalculator(limit, set);
          double xProp, yProp;
-         r.fillRainbowColors(limit+1);
+         r.fillRainbowColors(limit);
          for(int x = renderX; x < renderX + chunkSize; x++) {
              for(int y = renderY; y < renderY + chunkSize; y++) {
                xProp = ((double) x) / ((double) width);

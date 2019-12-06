@@ -12,10 +12,12 @@ public class TextArea extends JPanel {
 
         JTextArea textArea = new JTextArea(5, 50);
 
-        double xPos = 0.0;
-        double yPos = 0.0;
+        double xMin = 0.0;
+        double xMax = 0.0;
+        double yMin = 0.0;
+        double yMax = 0.0;
         
-        textArea.setText("X Coordinate: " + xPos + "\n" +"Y Coordinate: " + yPos);
+        textArea.setText("X Min: " + xMin +"\n" + "X Max: " + xMax + "\n" +"Y Min: " + yMin + "\n" + "Y Max: " + yMax);
 
         // By default the JTextArea is editable, calling
         // setEditable(false) produce uneditable JTextArea.
@@ -29,7 +31,7 @@ public class TextArea extends JPanel {
         JPanel panel = new TextArea();
         panel.setOpaque(true);
 
-        JFrame frame = new JFrame("X and Y Coordinates ");
+        JFrame frame = new JFrame("X and Y Ranges ");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setContentPane(panel);
         frame.pack();

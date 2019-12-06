@@ -75,6 +75,9 @@ public class Rainbow{
 
     // given an index, get the color at that index
     public Color getColor(int index){
+        if(colors.length == index){
+            return Color.BLACK;
+        }
         return colors[index];
         }
 
