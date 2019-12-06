@@ -38,6 +38,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    private int limit = DEFAULT_LIMIT;
    private Rainbow r = Rainbow.getInstance(limit);
    private String set = "Mandelbrot Set";
+   SetCalculator sc = new SetCalculator(limit, set);
    
    // Final variables
    final private Color colorSelect = new Color(0, 200, 200);
@@ -175,7 +176,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       updateRectangle();
       
       // Resize the viewing area here
-      
+      int xMax = (int) drawRect.getWidth();
+      int xMin = (int) drawRect.getHeight();
 
       // Free up the draw variables
       drawRect = null;
@@ -296,7 +298,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       if (!doneRendering) {
          
          // Iterate over each pixel in the render chunk
-         SetCalculator sc = new SetCalculator(limit, set);
          double xProp, yProp;
          r.fillRainbowColors(limit);
          for(int x = renderX; x < renderX + chunkSize; x++) {
@@ -328,6 +329,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       paintImmediately(0, 0, width, height);
    }
 
+   /**
+    * saveImage
+    * Method called when the save button is pressed, saves the current displayed set as a png
+    */
    public void saveImage(){
       JFileChooser fc = new JFileChooser();
       if(fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
@@ -340,6 +345,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       }
    }
 
+   /** 
+    * reset
+    * Resets the limits, drawing variables, and then rerenders
+   */
    public void reset(){
       limit = DEFAULT_LIMIT;
       drawRect = null;
@@ -348,11 +357,19 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       resetRender();
    }
 
+   /** 
+    * increaseLimit
+    * Increases the limit and rerenders
+   */
    public void increaseLimit(){
       limit = limit*2;
       resetRender();
    }
 
+   /** 
+    * decreaseLimit
+    * Decreases the limit as long as it will not make it less than the default limit then rerenders
+   */
    public void decreaseLimit(){
       if(limit>DEFAULT_LIMIT){
          limit = limit/2;
@@ -360,16 +377,29 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       resetRender();
    }
 
+   /** 
+    * setSet
+    * Method to change the set when a new set is selected from the gui
+   */
    public void setSet(String set){
       this.set = set;
+      sc.changeSet(this.set);
    }
 }
 
+/** 
+ * SetCalculator Class 
+ * Calculates the values used in the visualization of the mandelbrot and julia set
+*/
 class SetCalculator {
    double xMin, xMax, yMin, yMax;
    String set;
    int limit;
 
+   /** 
+    * SetCalculator
+    * Instantiates the SetCalcator using the original limit and set
+   */
    public SetCalculator(int limit, String set){
       this.set = set;
       this.limit = limit;
@@ -388,9 +418,35 @@ class SetCalculator {
    }
 
    public void setVars(double xMinp, double xMaxp, double yMinp, double yMin){
-      
+
+   }
+
+   /** 
+    * changeSet
+    * changes the set and sets the appropriate variables based on the set
+   */
+   public void changeSet(String set){
+      this.set = set;
+      if(set=="Mandelbrot Set"){
+         xMin = -2.5;
+         xMax = 1.0;
+         yMin = -1.0;
+         yMax = 1.0;
+      }
+      else if(set=="Julia Set"){
+         xMin = -1.5;
+         xMax = 1.5;
+         yMin = -1.5;
+         yMax = 1.5;
+      }
    }
    
+   
+   /**
+    * getT
+    * returns the iterations needed to make av > 2.0 or returns the limit
+    * @return t
+    */
    public int getT(double x, double y){
       
       double real = x * (xMax - xMin) + xMin;
