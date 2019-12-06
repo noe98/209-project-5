@@ -17,8 +17,9 @@ public class Mandelbrot extends JFrame {
         // JButton loadPosButton = new JButton("Load Position");
         // JButton editGradButton = new JButton("Edit Gradient");
         String[] sets = {"Mandelbrot Set", "Julia Set"};
+        String[] gradients = {"Rainbow", "Grayscale", "Jell-o"};
         JComboBox<String> setButton = new JComboBox<>(sets);
-
+        JComboBox<String> gradientButton = new JComboBox<>(gradients);
         // Use a GridBagLayout
         setLayout(new GridBagLayout());
         GridBagConstraints positionConst = new GridBagConstraints();
@@ -93,6 +94,15 @@ public class Mandelbrot extends JFrame {
                canvas.setSet(setButton.getSelectedItem().toString());
                canvas.resetRender();
             }
+
+        
+        };
+
+        ActionListener changeGradient = new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                Rainbow.getInstance(32).chooseGradient(gradientButton.getSelectedItem().toString());
+                canvas.resetRender();
+            }
         };
 
         positionConst.gridy=1;
@@ -128,9 +138,15 @@ public class Mandelbrot extends JFrame {
         // add(loadPosButton,positionConst);
         // loadPosButton.addActionListener(loadPos_bl);
 
+
+        positionConst.gridx=4;
+        add(gradientButton,positionConst);
+        gradientButton.addActionListener(changeGradient);
+
         // positionConst.gridx=4;
         // add(editGradButton,positionConst);
         // editGradButton.addActionListener(editGrad_bl);
+
     }
     
     public static void main(String[] args) {

@@ -21,6 +21,17 @@ public class Rainbow{
     static Rainbow inst;
     
 
+    public void chooseGradient(String gradient){
+        if(gradient.equals("Rainbow")){
+            seeds = new Color[] {Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.MAGENTA};
+        }
+        else if(gradient.equals("Grayscale")){
+            seeds = new Color[] {Color.BLACK, Color.WHITE};
+        }
+        else if(gradient.equals("Jell-o")){
+            seeds = new Color[] {Color.GREEN, Color.WHITE, Color.MAGENTA};
+        }
+    }
 
     /**
      * Rainbow
