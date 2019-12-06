@@ -364,6 +364,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       drawRect = null;
       posStart = null;
       posEnd = null;
+      sc = new SetCalculator(limit,set);
       resetRender();
    }
 
@@ -406,6 +407,8 @@ class SetCalculator {
 
    /** 
     * Instantiates the SetCalcator using the original limit and set
+    * @param limit 
+    * @param set
    */
    public SetCalculator(int limit, String set){
       this.set = set;
@@ -424,6 +427,13 @@ class SetCalculator {
       }
    }
 
+   /**
+    * Method to set the new xMin, xMax, yMin, and yMax based on proportions passed in
+    * @param xMinp
+    * @param xMaxp
+    * @param yMinp
+    * @param yMaxp
+    */
    public void setVars(double xMinp, double xMaxp, double yMinp, double yMaxp){
       double xMinT = xMinp * (xMax-xMin) + xMin;
       double xMaxT = xMaxp * (xMax-xMin) + xMin;
@@ -437,6 +447,7 @@ class SetCalculator {
 
    /** 
     * changes the set and sets the appropriate variables based on the set
+    * @param changeSet
    */
    public void changeSet(String set){
       this.set = set;
@@ -454,6 +465,10 @@ class SetCalculator {
       }
    }
 
+   /**
+    * sets the limit based on a passed integer
+    * @param limit
+    */
    public void setLimit(int limit){
       this.limit = limit;
    }
@@ -461,6 +476,8 @@ class SetCalculator {
    
    /**
     * returns the iterations needed to make av > 2.0 or returns the limit
+    * @param x
+    * @param y
     * @return t
     */
    public int getT(double x, double y){
