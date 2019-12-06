@@ -107,8 +107,12 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     */
    public void setupCanvas() {
       // Solid dimensions
+      double ratio = (2/3.5);
+      if(this.set == "Julia Set"){
+         ratio = 1.0;
+      }
       width = (int)(350 * scale);
-      height = (int)(width * (2 / 3.5));
+      height = (int)(width * (ratio));
       
       // Image which is drawn upon
       image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -176,8 +180,11 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       updateRectangle();
       
       // Resize the viewing area here
-      int xMax = (int) drawRect.getWidth();
-      int xMin = (int) drawRect.getHeight();
+      double xMax = (double) (drawRect.getWidth() + drawRect.getX()) / ( (double) width);
+      double yMax = (double) (drawRect.getHeight() + drawRect.getY()) / ( (double) height);
+      double xMin = (double) drawRect.getX()/((double)width);
+      double yMin = (double) drawRect.getY()/((double)height);
+      sc.setVars(xMin, xMax, yMin, yMax);
 
       // Free up the draw variables
       drawRect = null;
@@ -226,8 +233,12 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       int top = (int)Math.min(posStart.getY(), posEnd.getY());
       
       // Calculate Y-value based on x and ratio
+      double ratio = (2/3.5);
+      if(this.set == "Julia Set"){
+         ratio = 1.0;
+      }
       distX = Math.abs(width);
-      distY = (int)(distX * (2 / 3.5)); 
+      distY = (int)(distX * (ratio)); 
       
       // Set up rectangle to the correct four corners
       drawRect.setLocation(left, top);
@@ -300,6 +311,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
          // Iterate over each pixel in the render chunk
          double xProp, yProp;
          r.fillRainbowColors(limit);
+         sc.setLimit(limit);
          for(int x = renderX; x < renderX + chunkSize; x++) {
              for(int y = renderY; y < renderY + chunkSize; y++) {
                xProp = ((double) x) / ((double) width);
@@ -330,7 +342,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    }
 
    /**
-    * saveImage
     * Method called when the save button is pressed, saves the current displayed set as a png
     */
    public void saveImage(){
@@ -346,7 +357,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    }
 
    /** 
-    * reset
     * Resets the limits, drawing variables, and then rerenders
    */
    public void reset(){
@@ -358,7 +368,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    }
 
    /** 
-    * increaseLimit
     * Increases the limit and rerenders
    */
    public void increaseLimit(){
@@ -367,7 +376,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    }
 
    /** 
-    * decreaseLimit
     * Decreases the limit as long as it will not make it less than the default limit then rerenders
    */
    public void decreaseLimit(){
@@ -378,12 +386,12 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
    }
 
    /** 
-    * setSet
     * Method to change the set when a new set is selected from the gui
    */
    public void setSet(String set){
       this.set = set;
       sc.changeSet(this.set);
+      setupCanvas();
    }
 }
 
@@ -397,7 +405,6 @@ class SetCalculator {
    int limit;
 
    /** 
-    * SetCalculator
     * Instantiates the SetCalcator using the original limit and set
    */
    public SetCalculator(int limit, String set){
@@ -417,12 +424,18 @@ class SetCalculator {
       }
    }
 
-   public void setVars(double xMinp, double xMaxp, double yMinp, double yMin){
-
+   public void setVars(double xMinp, double xMaxp, double yMinp, double yMaxp){
+      double xMinT = xMinp * (xMax-xMin) + xMin;
+      double xMaxT = xMaxp * (xMax-xMin) + xMin;
+      double yMinT = yMinp * (yMax-yMin) + yMin;
+      double yMaxT = yMaxp * (yMax-yMin) + yMin;
+      this.xMin = xMinT;
+      this.xMax = xMaxT;
+      this.yMin = yMinT;
+      this.yMax = yMaxT;
    }
 
    /** 
-    * changeSet
     * changes the set and sets the appropriate variables based on the set
    */
    public void changeSet(String set){
@@ -440,10 +453,13 @@ class SetCalculator {
          yMax = 1.5;
       }
    }
+
+   public void setLimit(int limit){
+      this.limit = limit;
+   }
    
    
    /**
-    * getT
     * returns the iterations needed to make av > 2.0 or returns the limit
     * @return t
     */

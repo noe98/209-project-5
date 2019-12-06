@@ -57,6 +57,7 @@ public class Rainbow{
      */
 
     public void fillRainbowColors(int limit){
+        this.limit = limit;
         this.colors = new Color[limit];
         double numSeeds = seeds.length;
         double numSpots = (int)((limit - 1)/(numSeeds -1));
