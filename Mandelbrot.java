@@ -1,26 +1,36 @@
+/**
+ * Mandelbrot.java
+ * GUI to display the Mandelbrot set
+ */
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
+/**
+ * Mandelbrot class
+ */
 
 public class Mandelbrot extends JFrame {
     
     // Class Variables   
     private Canvas canvas;
+
+    /**
+     * Mandelbrot sets up the canvas and buttons on the GUI
+     */
    
     public Mandelbrot() {
         // Instantiate all the buttons
         JButton increaseButton = new JButton("Increase Limit");
         JButton decreaseButton = new JButton("Decrease Limit");
         JButton saveImgButton = new JButton("Save Image");
-        // JButton savePosButton = new JButton("Save Position");
         JButton resetButton = new JButton("Reset");
-        // JButton loadPosButton = new JButton("Load Position");
-        // JButton editGradButton = new JButton("Edit Gradient");
         String[] sets = {"Mandelbrot Set", "Julia Set"};
         String[] gradients = {"Rainbow", "Grayscale", "Jell-o"};
         JComboBox<String> setButton = new JComboBox<>(sets);
         JComboBox<String> gradientButton = new JComboBox<>(gradients);
-        // Use a GridBagLayout
         setLayout(new GridBagLayout());
         GridBagConstraints positionConst = new GridBagConstraints();
         positionConst.insets = new Insets(10, 10, 10, 10);
@@ -53,6 +63,10 @@ public class Mandelbrot extends JFrame {
             }
         };
 
+        /**
+         * ActionListeners do not return anything, but set actions for the GUI to execute
+         */
+
         ActionListener decrease_bl = new ActionListener(){
             public void actionPerformed(ActionEvent e){
                canvas.decreaseLimit();
@@ -64,12 +78,7 @@ public class Mandelbrot extends JFrame {
                canvas.saveImage();
             }
         };
-
-        // ActionListener savePos_bl = new ActionListener(){
-        //     public void actionPerformed(ActionEvent e){
-        //        // Do Something 
-        //     }
-        // };
+ 
 
         ActionListener reset_bl = new ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -77,17 +86,7 @@ public class Mandelbrot extends JFrame {
             }
         };
 
-        // ActionListener loadPos_bl = new ActionListener(){
-        //     public void actionPerformed(ActionEvent e){
-        //        // Do Something 
-        //     }
-        // };
 
-        // ActionListener editGrad_bl = new ActionListener(){
-        //     public void actionPerformed(ActionEvent e){
-        //        // Do Something 
-        //     }
-        // };
 
         ActionListener set_bl = new ActionListener(){
             public void actionPerformed(ActionEvent e){
@@ -130,25 +129,22 @@ public class Mandelbrot extends JFrame {
         add(saveImgButton,positionConst);
         saveImgButton.addActionListener(saveImg_bl);
 
-        // positionConst.gridx=2;
-        // add(savePosButton,positionConst);
-        // savePosButton.addActionListener(savePos_bl);
-
-        // positionConst.gridx=3;
-        // add(loadPosButton,positionConst);
-        // loadPosButton.addActionListener(loadPos_bl);
 
 
         positionConst.gridx=4;
         add(gradientButton,positionConst);
         gradientButton.addActionListener(changeGradient);
 
-        // positionConst.gridx=4;
-        // add(editGradButton,positionConst);
-        // editGradButton.addActionListener(editGrad_bl);
+
 
     }
     
+
+    /**
+     * main method
+     * returns nothing
+     * displays the application frame
+     */
     public static void main(String[] args) {
         
         // Main frame

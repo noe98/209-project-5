@@ -1,3 +1,9 @@
+/**
+ * Canvas.java
+ * works on the back end of Mandelbrot
+ * collects information from Mandelbrot and Rainbow to visualize sets
+ */
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -139,7 +145,9 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
       }
    }
    
-   // Methods needed for mouse listeners but not needed to implement
+   /**
+    * Methods needed for mouse listeners but not needed to implement
+    */
    @Override
    public void mouseEntered(MouseEvent e) {}
 

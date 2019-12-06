@@ -14,13 +14,16 @@ import java.awt.Color;
 public class Rainbow{
     Color[] colors;
     Color[] seeds = {Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.MAGENTA};
-    int counter = 0;
     int limit;
     int colorSelect;
     int index;
     static Rainbow inst;
     
-
+/**
+ * chooseGradient takes information from the GUI to send to Mandelbrot
+ * sets the gradient chosen by the user
+ * @param gradient
+ */
     public void chooseGradient(String gradient){
         if(gradient.equals("Rainbow")){
             seeds = new Color[] {Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.MAGENTA};
@@ -62,7 +65,7 @@ public class Rainbow{
     
 
     /**
-     * addColor
+     * fillRainbowColors
      * @param Rainbow color
      * adds new colors into array if they can fit
      */
